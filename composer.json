@@ -1,0 +1,24 @@
+{
+  "name": "neofusion/json-rpc-bundle",
+  "type": "symfony-bundle",
+  "description": "JSON-RPC 2.0 Server for Symfony",
+  "keywords": ["symfony", "json-rpc"],
+  "homepage": "https://github.com/NeoFusion/JsonRpcBundle",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Evgeniy NeoFusion",
+      "email": "evgeniy@neofusion.ru"
+    }
+  ],
+  "require": {
+    "php": "^5.5.9|^7.0",
+    "symfony/framework-bundle": "^2.7|^3.0"
+  },
+  "require-dev": {
+    "symfony/browser-kit": "^2.7|^3.0"
+  },
+  "autoload": {
+    "psr-4": { "NeoFusion\\JsonRpcBundle\\": "" }
+  }
+}
