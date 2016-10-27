@@ -1,0 +1,25 @@
+imports:
+    - { resource: services.yml }
+
+parameters:
+    locale: en
+    secret: ThisTokenIsNotSoSecretChangeIt
+
+framework:
+    test:           ~
+    secret:         "%secret%"
+    router:         { resource: "%kernel.root_dir%/config/routing.yml" }
+    templating:     { engines: ['php'] }
+    default_locale: "%locale%"
+    session:        { storage_id: session.storage.mock_file }
+    profiler:       { collect: false }
+
+neofusion_jsonrpc:
+    routing:
+        test_jsonrpc:
+            path: /test
+            methods:
+                sum:      { service: 'neofusion_jsonrpc.test_controller', action: 'sum' }
+                subtract: { service: 'neofusion_jsonrpc.test_controller', action: 'subtract' }
+                get_data: { service: 'neofusion_jsonrpc.test_controller', action: 'get_data' }
+                update:   { service: 'neofusion_jsonrpc.test_controller', action: 'update' }

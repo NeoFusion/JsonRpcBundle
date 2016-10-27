@@ -1,0 +1,3 @@
+neofusion_jsonrpc:
+    resource: "@NeoFusionJsonRpcBundle/Resources/config/routing.yml"
+    prefix: /api
