@@ -134,13 +134,13 @@ class ServerController extends Controller
         try {
             $result = $service->$action($request->getParams());
         } catch (\Exception $e) {
-            // If error code exists in JsonRpcError list, that use it. Otherwise using standard CODE_SERVER_ERROR
+            // If error code exists in JsonRpcError list, than use it. Otherwise using standard CODE_SERVER_ERROR
             if (array_key_exists($e->getCode(), JsonRpcError::$errorMessages)) {
                 $code = $e->getCode();
             } else {
                 $code = JsonRpcError::CODE_SERVER_ERROR;
             }
-            // If an exception has `getData` method and it's not return null, then pass `data` as an array
+            // If an exception has `getData` method and it doesn't return null, pass `data` as an array
             if (is_callable(array($e, 'getData')) && $e->getData() !== null) {
                 $data = array(
                     'code'    => $e->getCode(),

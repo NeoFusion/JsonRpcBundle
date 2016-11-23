@@ -81,7 +81,7 @@ class JsonRpcSingleRequest
     }
 
     /**
-     * Validating fields
+     * Field validation
      *
      * @return bool
      */
@@ -103,6 +103,8 @@ class JsonRpcSingleRequest
     }
 
     /**
+     * Check whether Request is Notification
+     *
      * @return bool
      */
     public function isNotification()
