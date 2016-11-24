@@ -4,6 +4,11 @@ namespace NeoFusion\JsonRpcBundle\Tests\Functional\Bundle\TestBundle\Controller;
 
 class TestController
 {
+    /**
+     * @param array $params
+     *
+     * @return int
+     */
     public function sum($params)
     {
         $result = 0;
@@ -14,6 +19,11 @@ class TestController
         return $result;
     }
 
+    /**
+     * @param mixed $params
+     *
+     * @return mixed
+     */
     public function subtract($params)
     {
         if (array_key_exists('subtrahend', $params) && array_key_exists('minuend', $params)) {
@@ -23,7 +33,10 @@ class TestController
         }
     }
 
-    public function get_data()
+    /**
+     * @return array
+     */
+    public function getData()
     {
         return array('hello', 5);
     }

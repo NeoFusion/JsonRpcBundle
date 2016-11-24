@@ -1,3 +1,5 @@
 services:
     neofusion_jsonrpc.test_controller:
         class: NeoFusion\JsonRpcBundle\Tests\Functional\Bundle\TestBundle\Controller\TestController
+    neofusion_jsonrpc.exception_controller:
+        class: NeoFusion\JsonRpcBundle\Tests\Functional\Bundle\TestBundle\Controller\ExceptionController

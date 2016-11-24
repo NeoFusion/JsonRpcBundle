@@ -21,5 +21,13 @@ neofusion_jsonrpc:
             methods:
                 sum:      { service: 'neofusion_jsonrpc.test_controller', action: 'sum' }
                 subtract: { service: 'neofusion_jsonrpc.test_controller', action: 'subtract' }
-                get_data: { service: 'neofusion_jsonrpc.test_controller', action: 'get_data' }
+                getData:  { service: 'neofusion_jsonrpc.test_controller', action: 'getData' }
                 update:   { service: 'neofusion_jsonrpc.test_controller', action: 'update' }
+        test_exception:
+            path: /exception
+            methods:
+                serviceNotFound:         { service: 'neofusion_jsonrpc.nonexistent_controller', action: 'serviceNotFound' }
+                methodNotFound:          { service: 'neofusion_jsonrpc.exception_controller',   action: 'nonexistentMethod' }
+                getException:            { service: 'neofusion_jsonrpc.exception_controller',   action: 'getException' }
+                getExceptionWithMessage: { service: 'neofusion_jsonrpc.exception_controller',   action: 'getExceptionWithMessage' }
+                getExtendedException:    { service: 'neofusion_jsonrpc.exception_controller',   action: 'getExtendedException' }

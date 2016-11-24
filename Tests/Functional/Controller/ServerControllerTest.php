@@ -102,7 +102,7 @@ class ServerControllerTest extends WebTestCase
                 . '{"jsonrpc": "2.0", "method": "subtract", "params": [42,23], "id": "2"},'
                 . '{"foo": "boo"},'
                 . '{"jsonrpc": "2.0", "method": "foo.get", "params": {"name": "myself"}, "id": "5"},'
-                . '{"jsonrpc": "2.0", "method": "get_data", "id": "9"}'
+                . '{"jsonrpc": "2.0", "method": "getData", "id": "9"}'
                 . ']',
                 '['
                 . '{"jsonrpc":"2.0","result":7,"id":"1"},'
@@ -120,6 +120,51 @@ class ServerControllerTest extends WebTestCase
                 . ']',
                 ''
             )
+        );
+    }
+
+    /**
+     * @dataProvider exceptionRequestsProvider
+     *
+     * @param string $jsonRequest
+     * @param string $jsonResponse
+     */
+    public function testException($jsonRequest, $jsonResponse)
+    {
+        $client = static::createClient();
+        $client->request('POST', '/api/exception', array(), array(), array(), $jsonRequest);
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertEquals($jsonResponse, $client->getResponse()->getContent());
+    }
+
+    public function exceptionRequestsProvider()
+    {
+        return array(
+            // Service not found
+            array(
+                '{"jsonrpc": "2.0", "method": "serviceNotFound", "id": 1}',
+                '{"jsonrpc":"2.0","error":{"code":-32000,"message":"Server error"},"id":1}'
+            ),
+            // Method not found
+            array(
+                '{"jsonrpc": "2.0", "method": "methodNotFound", "id": 1}',
+                '{"jsonrpc":"2.0","error":{"code":-32601,"message":"Method not found"},"id":1}'
+            ),
+            // Server error
+            array(
+                '{"jsonrpc": "2.0", "method": "getException", "id": 1}',
+                '{"jsonrpc":"2.0","error":{"code":-32000,"message":"Server error"},"id":1}'
+            ),
+            // Server error with data
+            array(
+                '{"jsonrpc": "2.0", "method": "getExceptionWithMessage", "id": 1}',
+                '{"jsonrpc":"2.0","error":{"code":-32000,"message":"Server error","data":"Unknown error"},"id":1}'
+            ),
+            // Invalid params
+            array(
+                '{"jsonrpc": "2.0", "method": "getExtendedException", "id": 1}',
+                '{"jsonrpc":"2.0","error":{"code":-32602,"message":"Invalid params","data":{"code":-32602,"message":"Value out of range","data":"Additional data"}},"id":1}'
+            ),
         );
     }
 }
