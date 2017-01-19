@@ -26,16 +26,31 @@ class ServerController extends Controller
     public function processAction(Request $request, $route)
     {
         $content = $request->getContent();
+        $answer = $this->processContent($content, $route);
+
+        return ($answer === null) ? new Response() : new JsonResponse($answer);
+    }
+
+    /**
+     * Request body content processor
+     *
+     * @param string $content Request body content
+     * @param string $route   Route name
+     *
+     * @return array|null
+     */
+    private function processContent($content, $route)
+    {
         $jsonArray = json_decode($content, true);
         // Checking for JSON parsing errors
         if ($jsonArray === null) {
             $jsonRpcSingleResponse = new JsonRpcSingleResponse(null, new JsonRpcError(JsonRpcError::CODE_PARSE_ERROR));
-            return new JsonResponse($jsonRpcSingleResponse->toArray());
+            return $jsonRpcSingleResponse->toArray();
         }
         // Checking for array is not empty
         if (!(is_array($jsonArray) && !empty($jsonArray))) {
             $jsonRpcSingleResponse = new JsonRpcSingleResponse(null, new JsonRpcError(JsonRpcError::CODE_INVALID_REQUEST));
-            return new JsonResponse($jsonRpcSingleResponse->toArray());
+            return $jsonRpcSingleResponse->toArray();
         }
         // Getting array type
         $isAssoc = $this->isAssocArray($jsonArray);
@@ -60,7 +75,7 @@ class ServerController extends Controller
             $answer = $batchResult->isEmpty() ? null : $batchResult->toArray();
         }
 
-        return ($answer === null) ? new Response() : new JsonResponse($answer);
+        return $answer;
     }
 
     /**
