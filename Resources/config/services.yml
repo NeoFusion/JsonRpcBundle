@@ -1,6 +1,6 @@
 services:
     neofusion_jsonrpc.routing_loader:
         class: NeoFusion\JsonRpcBundle\Routing\ExtraLoader
-        arguments: ['@service_container']
+        arguments: ['%neofusion_jsonrpc%']
         tags:
             - { name: routing.loader }

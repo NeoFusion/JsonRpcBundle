@@ -3,18 +3,17 @@
 namespace NeoFusion\JsonRpcBundle\Routing;
 
 use Symfony\Component\Config\Loader\Loader;
-use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
 
 class ExtraLoader extends Loader
 {
     private $loaded = false;
-    private $container;
+    private $config;
 
-    public function __construct(Container $container)
+    public function __construct(array $config)
     {
-        $this->container = $container;
+        $this->config = $config;
     }
 
     public function load($resource, $type = null)
@@ -23,10 +22,8 @@ class ExtraLoader extends Loader
             throw new \RuntimeException('Do not add the "extra" loader twice');
         }
 
-        $config = $this->container->getParameter('neofusion_jsonrpc');
-
         $routes = new RouteCollection();
-        foreach ($config['routing'] as $name => $params) {
+        foreach ($this->config['routing'] as $name => $params) {
             $route = new Route($params['path'], array(
                 '_controller' => 'NeoFusionJsonRpcBundle:Server:process',
                 'route'       => $name
