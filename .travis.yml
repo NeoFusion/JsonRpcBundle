@@ -16,5 +16,9 @@ env:
 before_script:
   - composer self-update
   - composer require symfony/framework-bundle:${SYMFONY_VERSION}
+  - composer require satooshi/php-coveralls
 
-script: ./phpunit --coverage-text
+script: ./phpunit --coverage-clover build/logs/clover.xml
+
+after_success:
+  - travis_retry php vendor/bin/coveralls
