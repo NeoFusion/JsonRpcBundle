@@ -3,8 +3,9 @@
 namespace NeoFusion\JsonRpcBundle\Tests\Utils;
 
 use NeoFusion\JsonRpcBundle\Utils\JsonRpcSingleRequest;
+use PHPUnit\Framework\TestCase;
 
-class JsonRpcSingleRequestTest extends \PHPUnit_Framework_TestCase
+class JsonRpcSingleRequestTest extends TestCase
 {
     public function testValidRequest()
     {

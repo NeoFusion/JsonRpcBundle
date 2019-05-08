@@ -3,8 +3,9 @@
 namespace NeoFusion\JsonRpcBundle\Tests\Utils;
 
 use NeoFusion\JsonRpcBundle\Utils\JsonRpcError;
+use PHPUnit\Framework\TestCase;
 
-class JsonRpcErrorTest extends \PHPUnit_Framework_TestCase
+class JsonRpcErrorTest extends TestCase
 {
     public function testCode()
     {
